@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Calculator from "./components/Calculator";
+import History from "./components/History";
+import "./App.css";
 
-function App() {
+export const HamburgerContext = React.createContext();
+
+const App = () => {
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
+  const changeHamberburgerState = () => {
+    setHamburgerOpen(!hamburgerOpen);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HamburgerContext.Provider value={{ changeHamberburgerState }}>
+      <div className="calculator-container">
+        {/* {!hamburgerOpen ? <Calculator /> : <History />} */}
+        <Calculator />
+        <History />
+      </div>
+    </HamburgerContext.Provider>
   );
-}
+};
 
 export default App;
